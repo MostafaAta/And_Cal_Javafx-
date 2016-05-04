@@ -17,6 +17,7 @@
      @Override
  	public void start(Stage primaryStage) throws Exception {
 
+    	 //grid pane for buttons
          GridPane pane=new GridPane();
          pane.setStyle("-fx-backgrond-color:#EEE");
          pane.setAlignment(Pos.CENTER);
@@ -86,6 +87,7 @@
           pane.add(bPow, 0, 5);
           pane.add(bSqrt, 1, 5);
           pane.add(bEqual, 2, 5,2,1);  //colspan = 2
+
 
           vbox.getChildren().add(label);  // add label to the vbox
           vbox.getChildren().add(pane);   // add grid pane to the vbox
