@@ -194,7 +194,6 @@ import javafx.scene.text.Font;
           	label.setText(result);
           });
 
-
           vbox.getChildren().add(label);  // add label to the vbox
           vbox.getChildren().add(pane);   // add grid pane to the vbox
           vbox.setStyle("-fx-background:#1c1c1c");
