@@ -1,4 +1,6 @@
-  import javafx.application.Application;
+  import java.util.Stack;
+
+import javafx.application.Application;
  import javafx.geometry.Insets;
  import javafx.geometry.Pos;
  import javafx.scene.Scene;
@@ -235,7 +237,68 @@ import javafx.scene.text.Font;
              b.prefWidthProperty().bind(vbox.widthProperty().divide((220/50)));
 
              }
-     public static void main(String[] args) {
+     	private void ch() {
+    		if (result.length() > 3 && (result.charAt(result.length() - 2) == '+'
+    				|| result.charAt(result.length() - 2) == '*' || result.charAt(result.length() - 2) == '/'
+    				|| result.charAt(result.length() - 2) == '-' || result.charAt(result.length() - 2) == '%'))
+    			result = result.substring(0, result.length() - 3);
+    	}
+
+    	private void calculate(String exp) {
+    		double cal = 0;
+    		@SuppressWarnings("rawtypes")
+    		Stack<Comparable> st = new Stack<Comparable>();
+    		st.push('(');
+    		try {
+    			for (int i = 0; i < exp.length(); i++) {
+    				if (exp.charAt(i) == ')') {
+    					String s = ")";
+    					while (!st.peek().equals('('))
+    						s = st.pop() + s;
+    					
+    					    s = st.pop() + s;
+    					if (st.peek().equals('t')) // sqrt()
+    					{
+    						while (!st.peek().equals('s'))
+    							st.pop();
+    						st.pop();
+    						st.push(Math.sqrt(evaluateExp(s)));
+    					}
+
+    					else if (exp.charAt(i + 1) == '^') // ()^2
+    					{
+    						st.push(Math.pow(evaluateExp(s), 2));
+    						i += 2;
+    					} else if (exp.charAt(i + 1) == '^') // ()^2
+    					{
+    						st.push(Math.pow(evaluateExp(s), 2));
+    						i += 2;
+    					} else
+    						st.push(evaluateExp(s)); // ( + * - / )
+    				} else
+    					st.push(exp.charAt(i));
+    			}
+    			String s = " ) ";
+    			while (!st.isEmpty())
+    				s = st.pop() + s;
+    			cal = evaluateExp(s);
+    		} catch (Exception e) {
+    			label.setText("Error");
+    			return;
+    		}
+    		if (new Double(cal).isInfinite()) {
+    			label.setText(" Infinity");
+    		} else {
+    			label.setText("" + cal);
+    			System.out.println(cal);
+    		}
+    	}
+     private double evaluateExp(String s) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+	public static void main(String[] args) {
          launch(args);
      }
  }
