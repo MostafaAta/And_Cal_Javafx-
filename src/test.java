@@ -294,7 +294,7 @@ public class test extends Application {
 						st.push(Math.pow(evaluateExp(s), 2));
 						i += 2;
 					} else
-						st.push(evaluateExp(s)); // ( + * - / )
+						st.push(evaluateExp(s)); // ( + * - /  )
 				} else
 					st.push(exp.charAt(i));
 			}
