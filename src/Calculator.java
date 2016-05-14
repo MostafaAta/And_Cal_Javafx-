@@ -10,13 +10,32 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-public class test extends Application {
+/**
+ * Calculator class represents a simple calculator which can do the basic arithmetic +,-,/,* in additon
+ * to the square root , square of a number and modulus operation . the calculator has an button for clear all expression
+ * and another one for clear one character of the expression. there an exit button to shutdown the application .    
+ *@author Mohamed Talaat <m.talaat377@gmail.com>
+ *@version 1.0
+ *@since 2016-03-25
+ */
+public class Calculator extends Application {
+	/**
+	 * this string variable result which will carry all expression to calculate
+	 */
 	String result = " ";
+	/**
+	 * this is boolean variable to check if the button will be clicked is the first, make the result variable empty , else
+	 * concatenate the clicked button with the result string variable 
+	 */
 	boolean flag ;
 	Label label;
 	VBox vbox = new VBox();
-
+  /**
+   * this is start method to run the application
+   * @param primaryStage   the stage of the application
+   * @return void  
+   * @throws may throws an exception
+   */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -108,7 +127,7 @@ public class test extends Application {
 			  }
 		   result += b0.getText();
 		   label.setText(result);
-
+           flag=false;
 		  });
 		  b1.setOnAction(e -> {
 			  if (flag==true){
@@ -305,7 +324,11 @@ public class test extends Application {
 
 		primaryStage.show();
 	}
-
+	  /**
+	   * this is method for set the style for Buttons
+	   * @param b    Button for style it
+	   * @return void
+	   */
 	public void buttonStyle(Button b) {               //style buttons function
 		b.setStyle("-fx-padding:5px; ");
 		b.setFont(Font.font(12));
@@ -318,7 +341,11 @@ public class test extends Application {
 		b.prefWidthProperty().bind(vbox.widthProperty().divide((220 / 50)));
 
 	}
-
+	 /**
+	   * this is method for set the style for operators Buttons
+	   * @param b       Button for style it
+	   * @return void
+	   */
 	public void buttonStyleOpr(Button b) {                    //different style for operators buttons
 		b.setStyle("-fx-padding:5px; ");
 		b.setFont(Font.font(12));
@@ -330,14 +357,11 @@ public class test extends Application {
 		b.prefWidthProperty().bind(vbox.widthProperty().divide((220 / 50)));
 
 	}
-
-	public void bs(Button b) {
-		b.setStyle("-fx-padding:5px;font-size:18px");
-		b.setPrefSize(50, 30);
-	}
-
- 
-
+	 /**
+	   * this is method for calculate all the expression
+	   * @param exp    string expression to calculate it
+	   * @return void
+	   */
 	private void calculate(String exp) {                    //calculate Expression
 		double cal = 0;
 		Stack<Comparable> st = new Stack<Comparable>();
@@ -381,6 +405,11 @@ public class test extends Application {
 			System.out.println(cal);
 		}
 	}
+	 /**
+	   * this is method for evaluate subexpressions of the complete expression
+	   * @param exp    String  subexpression
+	   * @return double value of the result
+	   */
 
 	private double evaluateExp(String exp) {
 		boolean contain_operand = true;
@@ -456,7 +485,11 @@ public class test extends Application {
 		}
 		return new Double(exp);
 	}
-
+/**
+ * this is main method to launch the application
+ * @param args
+ * @return void 
+ */
 	public static void main(String[] args) {
 		launch(args);
 	}
