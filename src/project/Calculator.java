@@ -1,7 +1,5 @@
-package test;
-
+ package project;
 import java.util.Stack;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,13 +11,31 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-public class asd extends Application {
+/**
+ *Calculator class represents a simple calculator which can do the basic arithmetic +,-,/,* in addition
+ *to the square root , square of a number ,modulus operation and Trigonometric functions (sin,cos,tan) 
+ *the calculator has an button for clear all expression
+ *and another one for clear one character of the expression. there an exit button to shutdown the application .    
+ *@author Mohamed Talaat 
+ *@version 1.0
+ *@since 2016-03-25
+ */
+public class Calculator extends Application {
+	/**
+	 * this string variable result which will carry all expression to calculate
+	 */
  String result = " ";
+ /**
+	 * this is boolean variable to check if the button will be clicked is the first, make the result variable empty , else
+	 * concatenate the clicked button with the result string variable 
+	 */
  boolean flag ;
  Label label;
  VBox vbox = new VBox();
-
+ /**
+  * this is start method to run the application
+  * @param primaryStage   the stage of the application
+  */
  @Override
  public void start(Stage primaryStage) throws Exception {
 
@@ -34,7 +50,7 @@ public class asd extends Application {
   label.setPrefSize(220, 120);
   label.setMinHeight(35);
   label.setPadding(new Insets(0, 5, 0, 5));
-  label.setStyle("-fx-border-color:#0F0");
+  label.setStyle("-fx-border-color:#00F");
   label.setFont(Font.font("Times New Roman", 20));
 
   Button bPlus = new Button(" + ");                   //Create The Buttons
@@ -66,7 +82,7 @@ public class asd extends Application {
   label.prefHeightProperty().bind(vbox.heightProperty().divide((220 / 18) / 6));
   label.prefWidthProperty().bind(vbox.widthProperty());
 
-  Button bPow = new Button("Pow");
+  Button bPow = new Button("X^2");
   Button bClear = new Button("C");
   Button bClearall = new Button("AC");
   Button bSqrt = new Button("Sqrt");
@@ -123,7 +139,7 @@ public class asd extends Application {
 	  }
    result += b0.getText();
    label.setText(result);
-
+   
   });
   b1.setOnAction(e -> {
 	  if (flag==true){
@@ -277,7 +293,7 @@ public class asd extends Application {
 	  if (flag==true){
 		  result=" ";
 	  }
-	  result += "sinx(";
+	  result += "sin.(";
 	  label.setText(result);
 	  flag =false ;
   });
@@ -349,8 +365,11 @@ public class asd extends Application {
 
   primaryStage.show();
  }
-
- public void buttonStyle(Button b) {                   //Style function
+ /**
+  * this is method for set the style for Buttons
+  * @param b    Button for style it
+  */
+  public void buttonStyle(Button b) {                   //Style function
   b.setStyle("-fx-padding:5px; ");
   b.setFont(Font.font(12));
   b.setTextFill(Color.WHITE);
@@ -362,6 +381,10 @@ public class asd extends Application {
   b.prefWidthProperty().bind(vbox.widthProperty().divide((220 / 50)));
 
  }
+  /**
+   * this is method for set the style for operators Buttons
+   * @param b       Button for style it
+   */
 
  public void buttonStyleOpr(Button b) {              //make different style for operators Buttons..
   b.setStyle("-fx-padding:5px; ");
@@ -375,85 +398,84 @@ public class asd extends Application {
 
  }
 
- public void bs(Button b) {
-  b.setStyle("-fx-padding:5px;font-size:18px");
-  b.setPrefSize(50, 30);
- }
-
-
+ /**
+  * this is method for calculate all the expression
+  * @param exp    string expression to calculate it
+  */
 
  private void calculate(String exp) {                          //Calculate expression Function..
-  double cal = 0;
-  Stack<Comparable> st = new Stack<Comparable>();           //create stack
-  st.push('(');
-  try {
-   for (int i = 0; i < exp.length(); i++) {
-    if (exp.charAt(i) == ')') {
-     String s = ")";
-     while (!st.peek().equals('('))
-      s = st.pop() + s;
-     s = st.pop() + s;
-     if (st.peek().equals('t')) // sqrt()
-     {
-      while (!st.peek().equals('s'))
-       st.pop();
-      st.pop();
-      st.push(Math.sqrt(evaluateExp(s)));
-     }
+	  double cal = 0;
+	  Stack<Comparable> st = new Stack<Comparable>();           //create stack
+	  st.push('(');
+	  try {
+	   for (int i = 0; i < exp.length(); i++) {
+	    if (exp.charAt(i) == ')') {
+	     String s = ")";
+	     while (!st.peek().equals('('))
+	      s = st.pop() + s;
+	     s = st.pop() + s;
+	     if (st.peek().equals('t')) // sqrt()
+	     {
+	      while (!st.peek().equals('s'))
+	       st.pop();
+	      st.pop();
+	      st.push(Math.sqrt(evaluateExp(s)));
+	     }
 
-     else if (st.peek().equals('s')) // cos
-     {while (!st.peek().equals('c'))
-         st.pop();
-        st.pop();
-        st.push(Math.round((Math.cos(((Math.PI/180)*evaluateExp(s))))*1000.0)/1000.0);
-        }
-     else if (st.peek().equals('n')) // tan
-     {while (!st.peek().equals('t'))
-         st.pop();
-        st.pop();
-        if ((evaluateExp(s)% (90*3) == 0)||(evaluateExp(s)== 90)){
-        	st.push("0/1");
-        }
-        else{
-        st.push(Math.round((Math.tan(((Math.PI/180)*(int)(evaluateExp(s)))))*1000.0)/1000.0);
-        }
-        }
-
-     else if (st.peek().equals('x')) // sin
-     {while (!st.peek().equals('s'))
-         st.pop();
-        st.pop();
-        st.push(Math.round((Math.sin(((Math.PI/180)*evaluateExp(s))))*1000.0)/1000.0);
-        }
-     else if (exp.charAt(i + 1) == '^') // ()^2
-     {
-      st.push(Math.pow(evaluateExp(s), 2));
-      i += 2;
-     } else if (exp.charAt(i + 1) == '^') // ()^2
-     {
-      st.push(Math.pow(evaluateExp(s), 2));
-      i += 2;
-     } else
-      st.push(evaluateExp(s)); // ( + * - / )
-    } else
-     st.push(exp.charAt(i));
-   }
-   String s = " ) ";
-   while (!st.isEmpty())
-    s = st.pop() + s;
-   cal = evaluateExp(s);
-  } catch (Exception e) {
-   label.setText("Invalid Input");
-   return;
-  }
-  if (new Double(cal).isInfinite()) {
-   label.setText(" Infinity");
-  } else {
-   label.setText("" + cal);
-   System.out.println(cal);
-  }
- }
-
+	     else if (st.peek().equals('s')) // cos
+	     {while (!st.peek().equals('c'))
+	         st.pop();
+	        st.pop();
+	        st.push(Math.round((Math.cos(((Math.PI/180)*evaluateExp(s))))*1000.0)/1000.0);
+	        }
+	     else if (st.peek().equals('n')) // tan
+	     {while (!st.peek().equals('t'))
+	         st.pop();
+	        st.pop();
+	        if ((evaluateExp(s)% (90*3) == 0)||(evaluateExp(s)== 90)){
+	        	st.push("0/1");
+	        }
+	        else{
+	        st.push(Math.round((Math.tan(((Math.PI/180)*(int)(evaluateExp(s)))))*1000.0)/1000.0);
+	        }
+	        }
+			else if (exp.charAt(i + 1) == '^') // ()^2
+			{
+				st.push(Math.pow(evaluateExp(s), 2));
+				i += 2;
+			}
+		     else if (st.peek().equals('.')){ // sin
+		         {while (!st.peek().equals('s'))
+		             st.pop();
+		            st.pop();
+		            st.push(Math.round((Math.sin(((Math.PI/180)*evaluateExp(s))))*1000.0)/1000.0);
+		            }
+		         }
+			else
+	      st.push(evaluateExp(s)); // ( + * - / )
+	    } else
+	     st.push(exp.charAt(i));
+	   }
+	   String s = " ) ";
+	   while (!st.isEmpty())
+	    s = st.pop() + s;
+	   cal = evaluateExp(s);
+	  } catch (Exception e) {
+	   label.setText("Invalid Input");
+	   return;
+	  }
+	  if (new Double(cal).isInfinite()) {
+	   label.setText(" Infinity");
+	  } else {
+	   label.setText("" + cal);
+	   System.out.println(cal);
+	  }
+	 }
+ /**
+  * this is method for evaluate subexpressions of the complete expression
+  * @param exp    String  subexpression
+  * @return double value of the result
+  */
  private double evaluateExp(String exp) {       //evaluate expression function
   boolean contain_operand = true;
   exp = exp.replace("(", "");
@@ -528,8 +550,13 @@ public class asd extends Application {
   }
   return new Double(exp);
  }
-
+ /**
+  * this is main method to launch the application
+  * @param args  array of strings 
+  */
  public static void main(String[] args) {                 //Main
   launch(args);
  }
 }
+
+ 
