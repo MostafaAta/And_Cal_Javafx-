@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * Calculator class represents a simple calculator which can do the basic arithmetic +,-,/,* in additon
  * to the square root , square of a number and modulus operation . the calculator has an button for clear all expression
  * and another one for clear one character of the expression. there an exit button to shutdown the application .    
- *@author Mohamed Talaat <m.talaat377@gmail.com>
+ *@author Mohamed Talaat 
  *@version 1.0
  *@since 2016-03-25
  */
@@ -33,8 +33,6 @@ public class Calculator extends Application {
   /**
    * this is start method to run the application
    * @param primaryStage   the stage of the application
-   * @return void  
-   * @throws may throws an exception
    */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -327,7 +325,6 @@ public class Calculator extends Application {
 	  /**
 	   * this is method for set the style for Buttons
 	   * @param b    Button for style it
-	   * @return void
 	   */
 	public void buttonStyle(Button b) {               //style buttons function
 		b.setStyle("-fx-padding:5px; ");
@@ -344,7 +341,6 @@ public class Calculator extends Application {
 	 /**
 	   * this is method for set the style for operators Buttons
 	   * @param b       Button for style it
-	   * @return void
 	   */
 	public void buttonStyleOpr(Button b) {                    //different style for operators buttons
 		b.setStyle("-fx-padding:5px; ");
@@ -360,7 +356,6 @@ public class Calculator extends Application {
 	 /**
 	   * this is method for calculate all the expression
 	   * @param exp    string expression to calculate it
-	   * @return void
 	   */
 	private void calculate(String exp) {                    //calculate Expression
 		double cal = 0;
@@ -487,8 +482,7 @@ public class Calculator extends Application {
 	}
 /**
  * this is main method to launch the application
- * @param args
- * @return void 
+ * @param args  array of strings 
  */
 	public static void main(String[] args) {
 		launch(args);
