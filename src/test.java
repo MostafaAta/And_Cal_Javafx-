@@ -1,6 +1,4 @@
-  
 import java.util.Stack;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +13,7 @@ import javafx.stage.Stage;
 
 public class test extends Application {
 	String result = " ";
+	boolean flag ;
 	Label label;
 	VBox vbox = new VBox();
 
@@ -30,11 +29,12 @@ public class test extends Application {
 		pane.setVgap(5);
 		label = new Label();
 		label.setPrefSize(220, 120);
+		label.setMinHeight(35);
 		label.setPadding(new Insets(0, 5, 0, 5));
 		label.setStyle("-fx-border-color:#00F");
 		label.setFont(Font.font("Times New Roman", 20));
 
-		Button bPlus = new Button(" + ");                   //Create The Buttons
+		Button bPlus = new Button(" + ");                             //Create the Buttons
 		Button bMinus = new Button(" - ");
 		Button bMult = new Button(" * ");
 		Button bDiv = new Button(" / ");
@@ -54,8 +54,8 @@ public class test extends Application {
 		Button bDot = new Button(".");
 		Button bEqual = new Button("=");
 		Button bMod2 = new Button("%");
-
-		// binding
+		Button exit = new Button("Exit");
+		// bind
 		label.prefHeightProperty().bind(vbox.heightProperty().divide((220 / 18) / 6));
 		label.prefWidthProperty().bind(vbox.widthProperty());
 
@@ -63,8 +63,8 @@ public class test extends Application {
 		Button bClear = new Button("C");
 		Button bClearall = new Button("AC");
 		Button bSqrt = new Button("Sqrt");
-
-		buttonStyle(b7);                               //Change Style of Buttons
+                                                               //Make the style of Buttons
+		buttonStyle(b7);
 		buttonStyle(b8);
 		buttonStyle(b9);
 		buttonStyleOpr(bDiv);
@@ -87,117 +87,188 @@ public class test extends Application {
 		buttonStyleOpr(bMod2);
 		buttonStyleOpr(bMod);
 		buttonStyleOpr(bPlus);
+		buttonStyleOpr(exit);
 
-		bEqual.setAlignment(Pos.CENTER);
-		bEqual.setPrefWidth(106);
-		bEqual.setPrefHeight(18);
-		bEqual.prefHeightProperty().bind(vbox.heightProperty().divide((220 / 18) / 2));
-		bEqual.prefWidthProperty().bind(vbox.widthProperty().divide((220 / 106)));
+
+
+
+		bEqual.prefHeightProperty().bind(vbox.heightProperty().divide((220 / 18) /2));
+		bEqual.prefWidthProperty().bind(vbox.widthProperty().divide((220 / 50)));
 		bEqual.setTextFill(Color.WHITE);
 
 		bEqual.setStyle("-fx-background-color:#0D8511");
 		bClear.setStyle("-fx-background-color:#B01A1A");
-		
-		                                                     // setting actions of the buttons
-		b0.setOnAction(e -> {
-			result += b0.getText();
-			label.setText(result);
-		});
-		b1.setOnAction(e -> {
-			result += b1.getText();
-			label.setText(result);
-		});
-		b2.setOnAction(e -> {
-			result += b2.getText();
-			label.setText(result);
-		});
-		b3.setOnAction(e -> {
-			result += b3.getText();
-			label.setText(result);
-		});
-		b4.setOnAction(e -> {
-			result += b4.getText();
-			label.setText(result);
-		});
-		b5.setOnAction(e -> {
-			result += b5.getText();
-			label.setText(result);
-		});
-		b6.setOnAction(e -> {
-			result += b6.getText();
-			label.setText(result);
-		});
-		b7.setOnAction(e -> {
-			result += b7.getText();
-			label.setText(result);
-		});
-		b8.setOnAction(e -> {
-			result += b8.getText();
-			label.setText(result);
-		});
-		b9.setOnAction(e -> {
-			result += b9.getText();
-			label.setText(result);
-		});
-		bClearall.setOnAction(e -> {
-			result = " ";
-			label.setText(result);
-		});
-		bClear.setOnAction(e -> {
-			if (result.length() == 0)
-				result = "";
-			else
-				result = result.substring(0, result.length() - 1);
-			label.setText(result);
-		});
-		bDiv.setOnAction(e -> {
-			result += bDiv.getText();
-			label.setText(result);
-		});
-		bDot.setOnAction(e -> {
-			result += bDot.getText();
-			label.setText(result);
-		});
-		bMinus.setOnAction(e -> {
-			result += bMinus.getText();
-			label.setText(result);
-		});
-		bMod.setOnAction(e -> {
-			result += bMod.getText();
-			label.setText(result);
-		});
-		bMod2.setOnAction(e -> {
-			result += bMod2.getText();
-			label.setText(result);
-		});
-		bMult.setOnAction(e -> {
-			result += bMult.getText();
-			label.setText(result);
-		});
-		bPlus.setOnAction(e -> {
-			result += bPlus.getText();
-			label.setText(result);
-		});
-		bPow.setOnAction(e -> {
-			result += " )^2";
-			label.setText(result);
-		});
-		bRp.setOnAction(e -> {
-			result += bRp.getText();
-			label.setText(result);
-		});
-		bLb.setOnAction(e -> {
-			result += bLb.getText();
-			label.setText(result);
-		});
-		bSqrt.setOnAction(e -> {
-			result += "sqrt(";
-			label.setText(result);
-		});
-		bEqual.setOnAction(e -> {
-			calculate(result);
-			System.out.println(result);
-		});
+		exit.setStyle("-fx-background-color:#F00");
+
+
+                                                		// setting actions of the buttons
+		  b0.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b0.getText();
+		   label.setText(result);
+
+		  });
+		  b1.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b1.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b2.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b2.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b3.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b3.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b4.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b4.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b5.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b5.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b6.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b6.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b7.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b7.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b8.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b8.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  b9.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += b9.getText();
+		   label.setText(result);
+		   flag = false;
+		  });
+		  bClearall.setOnAction(e -> {
+		   result = " ";
+		   label.setText(result);
+		  });
+		  bClear.setOnAction(e -> {
+		   if (result.length() == 0)
+		    result = "";
+		   else
+		    result = result.substring(0, result.length() - 1);
+		   label.setText(result);
+		  });
+		  bDiv.setOnAction(e -> {
+		   result += bDiv.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bDot.setOnAction(e -> {
+		   result += bDot.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bMinus.setOnAction(e -> {
+		   result += bMinus.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bMod.setOnAction(e -> {
+		   result += bMod.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bMod2.setOnAction(e -> {
+		   result += bMod2.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bMult.setOnAction(e -> {
+		   result += bMult.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bPlus.setOnAction(e -> {
+		   result += bPlus.getText();
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bPow.setOnAction(e -> {
+		   result += " )^2";
+		   label.setText(result);
+		   flag =false;
+		  });
+		  bRp.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += bRp.getText();
+		   label.setText(result);
+		   flag = false ;
+		  });
+		  bLb.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += bLb.getText();
+		   label.setText(result);
+		   flag = false ;
+		  });
+		  bSqrt.setOnAction(e -> {
+			  if (flag==true){
+				  result=" ";
+			  }
+		   result += "sqrt(";
+		   label.setText(result);
+		   flag =false ;
+		  });
+		  bEqual.setOnAction(e -> {
+			   calculate(result);
+			   result = " "+label.getText();
+			   flag=true;
+			   System.out.println(result);
+			  });
+
+		  exit.setOnAction(e->{
+			  System.exit(0);
+		  });
+
+		pane.add(exit, 3, 5);
 		pane.add(bRp, 0, 0);
 		pane.add(bLb, 1, 0);
 		pane.add(bClearall, 2, 0);
@@ -220,21 +291,22 @@ public class test extends Application {
 		pane.add(bMinus, 3, 4);
 		pane.add(b0, 0, 5);
 		pane.add(bDot, 1, 5);
-		pane.add(bEqual, 2, 5, 2, 1);   // colspan = 2
-		vbox.getChildren().add(label);  // add label to the vbox
-		vbox.getChildren().add(pane);  // add grid pane to the vbox
+		pane.add(bEqual, 2, 5);
+		vbox.getChildren().add(label); // add label to the vbox
+		vbox.getChildren().add(pane); // add grid pane to the vbox
 		vbox.setStyle("-fx-background:#1c1c1c");
 
 		Scene scene = new Scene(vbox, 220, 220);
 		primaryStage.setTitle("Taschenrechner");
 		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
 
 		primaryStage.show();
 	}
 
-	public void buttonStyle(Button b) {                   //Style function
+	public void buttonStyle(Button b) {               //style buttons function
 		b.setStyle("-fx-padding:5px; ");
 		b.setFont(Font.font(12));
 		b.setTextFill(Color.WHITE);
@@ -247,7 +319,7 @@ public class test extends Application {
 
 	}
 
-	public void buttonStyleOpr(Button b) {              //make different style for operators Buttons..
+	public void buttonStyleOpr(Button b) {                    //different style for operators buttons
 		b.setStyle("-fx-padding:5px; ");
 		b.setFont(Font.font(12));
 		b.setTextFill(Color.WHITE);
@@ -266,9 +338,9 @@ public class test extends Application {
 
  
 
-	private void calculate(String exp) {                          //Calculate expression Function..
+	private void calculate(String exp) {                    //calculate Expression
 		double cal = 0;
-		Stack<Comparable> st = new Stack<Comparable>();           //create stack
+		Stack<Comparable> st = new Stack<Comparable>();
 		st.push('(');
 		try {
 			for (int i = 0; i < exp.length(); i++) {
@@ -289,12 +361,8 @@ public class test extends Application {
 					{
 						st.push(Math.pow(evaluateExp(s), 2));
 						i += 2;
-					} else if (exp.charAt(i + 1) == '^') // ()^2
-					{
-						st.push(Math.pow(evaluateExp(s), 2));
-						i += 2;
-					} else
-						st.push(evaluateExp(s)); // ( + * - /  )
+					}  else
+						st.push(evaluateExp(s)); // ( + * - / )
 				} else
 					st.push(exp.charAt(i));
 			}
@@ -303,7 +371,7 @@ public class test extends Application {
 				s = st.pop() + s;
 			cal = evaluateExp(s);
 		} catch (Exception e) {
-			label.setText("Error");
+			label.setText("Invalid Input");
 			return;
 		}
 		if (new Double(cal).isInfinite()) {
@@ -314,7 +382,7 @@ public class test extends Application {
 		}
 	}
 
-	private double evaluateExp(String exp) {       //evaluate expression function
+	private double evaluateExp(String exp) {
 		boolean contain_operand = true;
 		exp = exp.replace("(", "");
 		exp = exp.replace(")", "");
@@ -389,7 +457,7 @@ public class test extends Application {
 		return new Double(exp);
 	}
 
-	public static void main(String[] args) {                 //Main
+	public static void main(String[] args) {
 		launch(args);
 	}
 }
